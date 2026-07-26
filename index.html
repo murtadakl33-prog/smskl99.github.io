@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استوديو المخطوطات والزخرفة العربية الاحترافي</title>
+    <title>معرض المخطوطات العربية المفرغة</title>
     
-    <!-- الخطوط العربية -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa+Ink:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;900&family=Changa:wght@400;700&family=El+Messiri:wght@400;700&family=Katibeh&family=Lalezar&family=Lateef&family=Mada:wght@700&family=Reem+Kufi+Fun:wght@700&family=Reem+Kufi:wght@400;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@400;700&family=Vazirmatn:wght@700;900&display=swap" rel="stylesheet">
-    
-    <!-- مكتبة html2canvas للحفظ كصورة -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -34,110 +30,37 @@
             font-family: 'Cairo', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-main);
-            padding: 25px 15px;
+            padding: 30px 15px;
             direction: rtl;
             min-height: 100vh;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .header h1 {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             font-weight: 900;
             background: linear-gradient(135deg, #fff 30%, var(--accent-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .header p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
 
-        /* لوحة التحكم */
-        .controls-wrapper {
-            max-width: 900px;
-            margin: 0 auto 30px auto;
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .main-input-box {
-            margin-bottom: 20px;
-        }
-
-        .main-input-box input {
-            width: 100%;
-            padding: 16px 20px;
-            font-size: 1.4rem;
-            border: 2px solid var(--border-color);
-            border-radius: 14px;
-            outline: none;
-            text-align: center;
-            font-family: 'Cairo', sans-serif;
-            background-color: #0d121f;
-            color: #fff;
-            transition: all 0.3s ease;
-        }
-
-        .main-input-box input:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .control-group label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .control-group select, .control-group input[type="color"] {
-            width: 100%;
-            padding: 10px;
-            background: #0d121f;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: #fff;
-            font-family: 'Cairo', sans-serif;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .control-group input[type="color"] {
-            height: 42px;
-            padding: 2px;
-        }
-
-        /* شبكة البطاقات */
+        /* شبكة عرض المخطوطات */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .grid-container { grid-template-columns: 1fr; }
         }
 
         .card {
@@ -147,379 +70,134 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            position: relative;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
         }
 
         .card:hover {
             border-color: var(--accent-gold);
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             box-shadow: 0 12px 35px var(--accent-glow);
         }
 
         .preview-area {
             width: 100%;
-            min-height: 220px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 14px;
-            position: relative;
-            padding: 20px;
-            overflow: hidden;
             background-color: #0b0f19;
-            transition: background 0.3s;
+            padding: 15px;
+            /* خلفية الشفافية */
+            background-image: repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%);
+            background-size: 16px 16px;
         }
 
-        .card-text {
-            font-size: 2.8rem;
-            line-height: 1.4;
-            text-align: center;
-            word-break: break-word;
-            transition: all 0.3s ease;
+        .preview-area img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0px 2px 8px rgba(255, 255, 255, 0.2));
         }
 
         .card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 18px;
+            margin-top: 15px;
             padding-top: 12px;
             border-top: 1px solid var(--border-color);
         }
 
-        .font-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .font-name {
+        .ms-title {
             font-size: 0.95rem;
             font-weight: 700;
             color: var(--text-main);
-        }
-
-        .font-type {
-            font-size: 0.75rem;
-            color: var(--text-muted);
         }
 
         .btn-download {
             background: linear-gradient(135deg, var(--accent-gold), #b89228);
             color: #000;
             border: none;
-            padding: 9px 18px;
+            padding: 8px 16px;
             font-size: 0.85rem;
             font-weight: 700;
             border-radius: 10px;
             cursor: pointer;
             font-family: 'Cairo', sans-serif;
+            text-decoration: none;
             transition: all 0.2s;
         }
 
         .btn-download:hover {
             opacity: 0.9;
-            transform: scale(1.02);
-        }
-
-        /* أنماط وتأثيرات احترافية */
-
-        /* 1. الثلث الذهبي الفاخر */
-        .style-thuluth-gold {
-            font-family: 'Aref Ruqaa Ink', serif;
-            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 4px 8px rgba(212, 175, 55, 0.4));
-            font-size: 3.2rem;
-        }
-
-        /* 2. النسخ المصحفي الملكي */
-        .style-naskh-royal {
-            font-family: 'Amiri Quran', serif;
-            color: #f1f5f9;
-            text-shadow: 0 0 12px rgba(255,255,255,0.3);
-            font-size: 2.8rem;
-        }
-
-        /* 3. النيون المعاصر (Neon Glow) */
-        .style-neon {
-            font-family: 'Reem Kufi Fun', sans-serif;
-            color: #00f0ff;
-            text-shadow: 0 0 5px #00f0ff, 0 0 15px #00f0ff, 0 0 30px #00f0ff;
-            font-size: 2.8rem;
-        }
-
-        /* 4. الديواني التشكيل الإبداعي */
-        .style-diwani-3d {
-            font-family: 'Katibeh', cursive;
-            color: #e2e8f0;
-            text-shadow: 2px 2px 0px #0284c7, 4px 4px 0px #0369a1, 6px 6px 10px rgba(0,0,0,0.7);
-            font-size: 3.2rem;
-        }
-
-        /* 5. الكوفي المربع الهندسي */
-        .style-kufi-square {
-            font-family: 'Reem Kufi', sans-serif;
-            font-weight: 900;
-            color: #f43f5e;
-            letter-spacing: 2px;
-            font-size: 2.7rem;
-            text-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
-        }
-
-        /* 6. الفارسية / النستعليق */
-        .style-nastaliq-art {
-            font-family: 'Lateef', cursive;
-            background: linear-gradient(45deg, #38bdf8, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 3.5rem;
-        }
-
-        /* 7. المخطوطة التراثية الحبرية */
-        .style-ink-vintage {
-            font-family: 'Aref Ruqaa', serif;
-            color: #d97706;
-            filter: drop-shadow(2px 2px 1px #451a03);
-            font-size: 3rem;
-        }
-
-        /* 8. البوستر الشاهق */
-        .style-poster-bold {
-            font-family: 'Lalezar', cursive;
-            color: #10b981;
-            text-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-            font-size: 3rem;
+            transform: scale(1.03);
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>استوديو المخطوطات والزخرفة العربية</h1>
-        <p>اكتب عبارتك واعتمد التشكيل والألوان والخلفيات للحفظ بأعلى جودة</p>
+        <h1>مكتبة المخطوطات العربية الفاخرة</h1>
+        <p>مخطوطات أصيلة جاهزة للتحميل بدقة PNG شفافة للاستخدام في التصاميم</p>
     </div>
 
-    <!-- لوحة التحكم الاحترافية -->
-    <div class="controls-wrapper">
-        <div class="main-input-box">
-            <input type="text" id="textInput" placeholder="اكتب العبارة أو الاسم هنا...">
-        </div>
-
-        <div class="tools-grid">
-            <div class="control-group">
-                <label>لون الخلفية</label>
-                <select id="bgType">
-                    <option value="dark">داكنة احترافية (Dark)</option>
-                    <option value="transparent">شفافة تماماً (PNG)</option>
-                    <option value="light">بيضاء ناصعة (Light)</option>
-                    <option value="gold-grad">تدرج ملكي ذهبي</option>
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label>حجم الخط</label>
-                <select id="fontSizeSelect">
-                    <option value="small">صغير</option>
-                    <option value="medium" selected>متوسط (قياسي)</option>
-                    <option value="large">كبير جداً (ضخم)</option>
-                </select>
-            </div>
-
-            <div class="control-group">
-                <label>لون خط مخصص</label>
-                <input type="color" id="customTextColor" value="#ffffff">
-            </div>
-        </div>
-    </div>
-
-    <!-- شبكة عرض المخطوطات الفنية -->
-    <div class="grid-container">
-        
-        <!-- بطاقة 1 -->
-        <div class="card">
-            <div class="preview-area"><span class="card-text style-thuluth-gold"></span></div>
-            <div class="card-footer">
-                <div class="font-info">
-                    <span class="font-name">مخطوطة الثلث الذهبي</span>
-                    <span class="font-type">تأثير الذهب الملكي بارز</span>
-                </div>
-                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
-            </div>
-        </div>
-
-        <!-- بطاقة 2 -->
-        <div class="card">
-            <div class="preview-area"><span class="card-text style-naskh-royal"></span></div>
-            <div class="card-footer">
-                <div class="font-info">
-                    <span class="font-name">النسخ المصحفي الشريف</span>
-                    <span class="font-type">خط القرآن الكريم الكلاسيكي</span>
-                </div>
-                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
-            </div>
-        </div>
-
-        <!-- بطاقة 3 -->
-        <div class="card">
-            <div class="preview-area"><span class="card-text style-neon"></span></div>
-            <div class="card-footer">
-                <div class="font-info">
-                    <span class="font-name">المخطوطة السايبيرية (Neon)</span>
-                    <span class="font-type">تأثير الضوء المشع الحديث</span>
-                </div>
-                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
-            </div>
-        </div>
-
-        <!-- بطاقة 4 -->
-        <div class="card">
-            <div class="preview-area"><span class="card-text style-diwani-3d"></span></div>
-            <div class="card-footer">
-                <div class="font-info">
-                    <span class="font-name">الديواني ثلاثي الأبعاد</span>
-                    <span class="font-type">ظلال عميقة وتنسيق إبداعي</span>
-                </div>
-                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
-            </div>
-        </div>
-
-        <!-- بطاقة 5 -->
-        <div class="card">
-            <div class="preview-area"><span class="card-text style-kufi-square"></span></div>
-            <div class="card-footer">
-                <div class="font-info">
-                    <span class="font-name">الكوفي الهندسي المربع</span>
-                    <span class="font-type">طراز معماري متناسق</span>
-                </div>
-                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
-            </div>
-        </div>
-
-        <!-- بطاقة 6 -->
-        <div class="card">
-            <div class="preview-area"><span class="card-text style-nastaliq-art"></span></div>
-            <div class="card-footer">
-                <div class="font-info">
-                    <span class="font-name">النستعليق الفارسية الجريئة</span>
-                    <span class="font-type">تدرجات ألوان الشفق الحديثة</span>
-                </div>
-                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
-            </div>
-        </div>
-
-        <!-- بطاقة 7 -->
-        <div class="card">
-            <div class="preview-area"><span class="card-text style-ink-vintage"></span></div>
-            <div class="card-footer">
-                <div class="font-info">
-                    <span class="font-name">خط الرقعة التراثي المعتق</span>
-                    <span class="font-type">طابع المخطوطات القديمة</span>
-                </div>
-                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
-            </div>
-        </div>
-
-        <!-- بطاقة 8 -->
-        <div class="card">
-            <div class="preview-area"><span class="card-text style-poster-bold"></span></div>
-            <div class="card-footer">
-                <div class="font-info">
-                    <span class="font-name">مخطوطة الشعار والبوستر</span>
-                    <span class="font-type">عريض ومناسب للإعلانات</span>
-                </div>
-                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
-            </div>
-        </div>
-
+    <!-- شبكة المخطوطات الجاهزة -->
+    <div class="grid-container" id="manuscriptsGrid">
+        <!-- يتم إدراج البطاقات تلقائياً بواسطة JavaScript -->
     </div>
 
     <script>
-        const input = document.getElementById('textInput');
-        const cardTexts = document.querySelectorAll('.card-text');
-        const previewAreas = document.querySelectorAll('.preview-area');
-        const bgType = document.getElementById('bgType');
-        const fontSizeSelect = document.getElementById('fontSizeSelect');
-        const customTextColor = document.getElementById('customTextColor');
-        
-        const defaultText = "تراب";
+        // قائمة المخطوطات الشفافة والمفرغة جاهزة للتنزيل
+        const manuscripts = [
+            {
+                title: "مخطوطة بسم الله الرحمن الرحيم",
+                image: "https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala_calligraphy.svg"
+            },
+            {
+                title: "مخطوطة الحمد لله رب العالمين",
+                image: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Al-Hamdulillah_Calligraphy.svg"
+            },
+            {
+                title: "مخطوطة محمد رسول الله",
+                image: "https://upload.wikimedia.org/wikipedia/commons/1/18/Muhammad_calligraphy.svg"
+            },
+            {
+                title: "مخطوطة لفظ الجلالة (الله)",
+                image: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Allah_vector.svg"
+            },
+            {
+                title: "مخطوطة صلى الله عليه وسلم",
+                image: "https://upload.wikimedia.org/wikipedia/commons/a/a2/Peace_be_upon_him_vector.svg"
+            },
+            {
+                title: "مخطوطة ما شاء الله",
+                image: "https://upload.wikimedia.org/wikipedia/commons/e/e6/MashaAllah_calligraphy.svg"
+            }
+        ];
 
-        function updateContent() {
-            let val = input.value.trim() || defaultText;
+        const container = document.getElementById('manuscriptsGrid');
+
+        // بناء البطاقات
+        manuscripts.forEach(ms => {
+            const card = document.createElement('div');
+            card.className = 'card';
             
-            cardTexts.forEach(el => {
-                el.textContent = val;
-            });
-        }
-
-        // تغيير نوع الخلفيات للبطاقات
-        bgType.addEventListener('change', (e) => {
-            const mode = e.target.value;
-            previewAreas.forEach(area => {
-                if (mode === 'dark') {
-                    area.style.background = '#0b0f19';
-                } else if (mode === 'transparent') {
-                    area.style.background = 'repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%) 50% / 16px 16px';
-                } else if (mode === 'light') {
-                    area.style.background = '#ffffff';
-                } else if (mode === 'gold-grad') {
-                    area.style.background = 'linear-gradient(135deg, #2a1f07 0%, #0b0f19 100%)';
-                }
-            });
-        });
-
-        // تغيير أحجام الخطوط
-        fontSizeSelect.addEventListener('change', (e) => {
-            const size = e.target.value;
-            cardTexts.forEach(el => {
-                if (size === 'small') el.style.transform = 'scale(0.8)';
-                if (size === 'medium') el.style.transform = 'scale(1)';
-                if (size === 'large') el.style.transform = 'scale(1.25)';
-            });
-        });
-
-        // تغيير لون الخط المخصص
-        customTextColor.addEventListener('input', (e) => {
-            const color = e.target.value;
-            cardTexts.forEach(el => {
-                el.style.webkitBackgroundClip = 'initial';
-                el.style.webkitTextFillColor = 'initial';
-                el.style.color = color;
-            });
-        });
-
-        input.addEventListener('input', updateContent);
-
-        input.value = defaultText;
-        updateContent();
-
-        // تنزيل الصورة
-        function downloadCard(button) {
-            const card = button.closest('.card');
-            const previewArea = card.querySelector('.preview-area');
-            const textVal = input.value.trim() || defaultText;
+            card.innerHTML = `
+                <div class="preview-area">
+                    <img src="${ms.image}" alt="${ms.title}">
+                </div>
+                <div class="card-footer">
+                    <span class="ms-title">${ms.title}</span>
+                    <a href="${ms.image}" download="${ms.title}.svg" target="_blank" class="btn-download">تحميل المخطوطة</a>
+                </div>
+            `;
             
-            button.innerText = "جاري التصدير...";
-
-            const isTransparent = bgType.value === 'transparent';
-            
-            html2canvas(previewArea, {
-                backgroundColor: isTransparent ? null : getComputedStyle(previewArea).backgroundColor,
-                scale: 3,
-                useCORS: true
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `${textVal}-مخطوطة-احترافية.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                button.innerText = "حفظ الصورة";
-            }).catch(() => {
-                button.innerText = "حفظ الصورة";
-            });
-        }
+            container.appendChild(card);
+        });
     </script>
 </body>
 </html>
+
