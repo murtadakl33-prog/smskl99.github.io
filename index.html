@@ -3,193 +3,523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>smskl99 | الموقع التعريفي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>استوديو المخطوطات والزخرفة العربية الاحترافي</title>
+    
+    <!-- الخطوط العربية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa+Ink:wght@400;700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;900&family=Changa:wght@400;700&family=El+Messiri:wght@400;700&family=Katibeh&family=Lalezar&family=Lateef&family=Mada:wght@700&family=Reem+Kufi+Fun:wght@700&family=Reem+Kufi:wght@400;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@400;700&family=Vazirmatn:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة html2canvas للحفظ كصورة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
     <style>
         :root {
-            --bg-color: #fcfbfa;
-            --text-color: #2c2520;
-            --primary-color: #8c6d58;
-            --accent-color: #d1b48c;
-            --card-bg: #ffffff;
+            --bg-primary: #0b0f19;
+            --bg-card: #151c2c;
+            --accent-gold: #d4af37;
+            --accent-glow: rgba(212, 175, 55, 0.25);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #2a3447;
         }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            padding: 25px 15px;
+            direction: rtl;
+            min-height: 100vh;
         }
-        header {
-            background-color: var(--card-bg);
-            padding: 20px 10%;
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* لوحة التحكم */
+        .controls-wrapper {
+            max-width: 900px;
+            margin: 0 auto 30px auto;
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .main-input-box {
+            margin-bottom: 20px;
+        }
+
+        .main-input-box input {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 1.4rem;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            outline: none;
+            text-align: center;
+            font-family: 'Cairo', sans-serif;
+            background-color: #0d121f;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .main-input-box input:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-group label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .control-group select, .control-group input[type="color"] {
+            width: 100%;
+            padding: 10px;
+            background: #0d121f;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .control-group input[type="color"] {
+            height: 42px;
+            padding: 2px;
+        }
+
+        /* شبكة البطاقات */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px var(--accent-glow);
+        }
+
+        .preview-area {
+            width: 100%;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+            background-color: #0b0f19;
+            transition: background 0.3s;
+        }
+
+        .card-text {
+            font-size: 2.8rem;
+            line-height: 1.4;
+            text-align: center;
+            word-break: break-word;
+            transition: all 0.3s ease;
+        }
+
+        .card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            margin-top: 18px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
         }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary-color);
-            letter-spacing: 1px;
-        }
-        nav a {
-            text-decoration: none;
-            color: var(--text-color);
-            margin-right: 20px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        nav a:hover {
-            color: var(--primary-color);
-        }
-        .hero {
-            padding: 80px 10% 60px 10%;
-            text-align: center;
-            background: linear-gradient(180deg, #f5eff6 0%, var(--bg-color) 100%);
-        }
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-        .hero p {
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            color: #5a5048;
-        }
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            max-width: 900px;
-            margin: 40px auto;
-        }
-        .social-card {
-            background-color: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            text-decoration: none;
-            color: var(--text-color);
-            transition: transform 0.3s, box-shadow 0.3s;
+
+        .font-info {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            border: 1px solid rgba(140, 109, 88, 0.1);
         }
-        .social-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(140, 109, 88, 0.15);
+
+        .font-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
         }
-        .social-card i {
-            font-size: 40px;
-            margin-bottom: 15px;
+
+        .font-type {
+            font-size: 0.75rem;
+            color: var(--text-muted);
         }
-        .instagram i { color: #e1306c; }
-        .tiktok i { color: #010101; }
-        .portfolio-icon i { color: var(--primary-color); }
-        .social-card h3 {
-            font-size: 18px;
-            margin-bottom: 8px;
+
+        .btn-download {
+            background: linear-gradient(135deg, var(--accent-gold), #b89228);
+            color: #000;
+            border: none;
+            padding: 9px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.2s;
         }
-        .social-card p {
-            font-size: 14px;
-            color: #777;
-            text-align: center;
+
+        .btn-download:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
         }
-        .about-section {
-            padding: 60px 10%;
-            background-color: var(--card-bg);
-            text-align: center;
+
+        /* أنماط وتأثيرات احترافية */
+
+        /* 1. الثلث الذهبي الفاخر */
+        .style-thuluth-gold {
+            font-family: 'Aref Ruqaa Ink', serif;
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 4px 8px rgba(212, 175, 55, 0.4));
+            font-size: 3.2rem;
         }
-        .about-section h2 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: var(--primary-color);
+
+        /* 2. النسخ المصحفي الملكي */
+        .style-naskh-royal {
+            font-family: 'Amiri Quran', serif;
+            color: #f1f5f9;
+            text-shadow: 0 0 12px rgba(255,255,255,0.3);
+            font-size: 2.8rem;
         }
-        .about-content {
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 17px;
-            color: #4a4038;
+
+        /* 3. النيون المعاصر (Neon Glow) */
+        .style-neon {
+            font-family: 'Reem Kufi Fun', sans-serif;
+            color: #00f0ff;
+            text-shadow: 0 0 5px #00f0ff, 0 0 15px #00f0ff, 0 0 30px #00f0ff;
+            font-size: 2.8rem;
         }
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            margin-top: 40px;
+
+        /* 4. الديواني التشكيل الإبداعي */
+        .style-diwani-3d {
+            font-family: 'Katibeh', cursive;
+            color: #e2e8f0;
+            text-shadow: 2px 2px 0px #0284c7, 4px 4px 0px #0369a1, 6px 6px 10px rgba(0,0,0,0.7);
+            font-size: 3.2rem;
         }
-        @media (max-width: 768px) {
-            header { padding: 15px 5%; }
-            .hero { padding: 50px 5%; }
-            .hero h1 { font-size: 32px; }
-            nav a { margin-right: 15px; font-size: 14px; }
+
+        /* 5. الكوفي المربع الهندسي */
+        .style-kufi-square {
+            font-family: 'Reem Kufi', sans-serif;
+            font-weight: 900;
+            color: #f43f5e;
+            letter-spacing: 2px;
+            font-size: 2.7rem;
+            text-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
+        }
+
+        /* 6. الفارسية / النستعليق */
+        .style-nastaliq-art {
+            font-family: 'Lateef', cursive;
+            background: linear-gradient(45deg, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+        }
+
+        /* 7. المخطوطة التراثية الحبرية */
+        .style-ink-vintage {
+            font-family: 'Aref Ruqaa', serif;
+            color: #d97706;
+            filter: drop-shadow(2px 2px 1px #451a03);
+            font-size: 3rem;
+        }
+
+        /* 8. البوستر الشاهق */
+        .style-poster-bold {
+            font-family: 'Lalezar', cursive;
+            color: #10b981;
+            text-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            font-size: 3rem;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">smskl99</div>
-        <nav>
-            <a href="#home">الرئيسية</a>
-            <a href="#about">عني</a>
-            <a href="#links">صفحاتي</a>
-        </nav>
-    </header>
+    <div class="header">
+        <h1>استوديو المخطوطات والزخرفة العربية</h1>
+        <p>اكتب عبارتك واعتمد التشكيل والألوان والخلفيات للحفظ بأعلى جودة</p>
+    </div>
 
-    <section class="hero" id="home">
-        <h1>مرحباً بك في عالمي الرقمي</h1>
-        <p>هنا تجد كافة منصاتي وتصاميمي وأعمالي في مكان واحد. تصفح الروابط أدناه للتواصل ومتابعة الجديد.</p>
-    </section>
+    <!-- لوحة التحكم الاحترافية -->
+    <div class="controls-wrapper">
+        <div class="main-input-box">
+            <input type="text" id="textInput" placeholder="اكتب العبارة أو الاسم هنا...">
+        </div>
 
-    <section style="padding: 20px 5%;" id="links">
-        <div class="social-grid">
+        <div class="tools-grid">
+            <div class="control-group">
+                <label>لون الخلفية</label>
+                <select id="bgType">
+                    <option value="dark">داكنة احترافية (Dark)</option>
+                    <option value="transparent">شفافة تماماً (PNG)</option>
+                    <option value="light">بيضاء ناصعة (Light)</option>
+                    <option value="gold-grad">تدرج ملكي ذهبي</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>حجم الخط</label>
+                <select id="fontSizeSelect">
+                    <option value="small">صغير</option>
+                    <option value="medium" selected>متوسط (قياسي)</option>
+                    <option value="large">كبير جداً (ضخم)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>لون خط مخصص</label>
+                <input type="color" id="customTextColor" value="#ffffff">
+            </div>
+        </div>
+    </div>
+
+    <!-- شبكة عرض المخطوطات الفنية -->
+    <div class="grid-container">
+        
+        <!-- بطاقة 1 -->
+        <div class="card">
+            <div class="preview-area"><span class="card-text style-thuluth-gold"></span></div>
+            <div class="card-footer">
+                <div class="font-info">
+                    <span class="font-name">مخطوطة الثلث الذهبي</span>
+                    <span class="font-type">تأثير الذهب الملكي بارز</span>
+                </div>
+                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
+            </div>
+        </div>
+
+        <!-- بطاقة 2 -->
+        <div class="card">
+            <div class="preview-area"><span class="card-text style-naskh-royal"></span></div>
+            <div class="card-footer">
+                <div class="font-info">
+                    <span class="font-name">النسخ المصحفي الشريف</span>
+                    <span class="font-type">خط القرآن الكريم الكلاسيكي</span>
+                </div>
+                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
+            </div>
+        </div>
+
+        <!-- بطاقة 3 -->
+        <div class="card">
+            <div class="preview-area"><span class="card-text style-neon"></span></div>
+            <div class="card-footer">
+                <div class="font-info">
+                    <span class="font-name">المخطوطة السايبيرية (Neon)</span>
+                    <span class="font-type">تأثير الضوء المشع الحديث</span>
+                </div>
+                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
+            </div>
+        </div>
+
+        <!-- بطاقة 4 -->
+        <div class="card">
+            <div class="preview-area"><span class="card-text style-diwani-3d"></span></div>
+            <div class="card-footer">
+                <div class="font-info">
+                    <span class="font-name">الديواني ثلاثي الأبعاد</span>
+                    <span class="font-type">ظلال عميقة وتنسيق إبداعي</span>
+                </div>
+                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
+            </div>
+        </div>
+
+        <!-- بطاقة 5 -->
+        <div class="card">
+            <div class="preview-area"><span class="card-text style-kufi-square"></span></div>
+            <div class="card-footer">
+                <div class="font-info">
+                    <span class="font-name">الكوفي الهندسي المربع</span>
+                    <span class="font-type">طراز معماري متناسق</span>
+                </div>
+                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
+            </div>
+        </div>
+
+        <!-- بطاقة 6 -->
+        <div class="card">
+            <div class="preview-area"><span class="card-text style-nastaliq-art"></span></div>
+            <div class="card-footer">
+                <div class="font-info">
+                    <span class="font-name">النستعليق الفارسية الجريئة</span>
+                    <span class="font-type">تدرجات ألوان الشفق الحديثة</span>
+                </div>
+                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
+            </div>
+        </div>
+
+        <!-- بطاقة 7 -->
+        <div class="card">
+            <div class="preview-area"><span class="card-text style-ink-vintage"></span></div>
+            <div class="card-footer">
+                <div class="font-info">
+                    <span class="font-name">خط الرقعة التراثي المعتق</span>
+                    <span class="font-type">طابع المخطوطات القديمة</span>
+                </div>
+                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
+            </div>
+        </div>
+
+        <!-- بطاقة 8 -->
+        <div class="card">
+            <div class="preview-area"><span class="card-text style-poster-bold"></span></div>
+            <div class="card-footer">
+                <div class="font-info">
+                    <span class="font-name">مخطوطة الشعار والبوستر</span>
+                    <span class="font-type">عريض ومناسب للإعلانات</span>
+                </div>
+                <button class="btn-download" onclick="downloadCard(this)">حفظ الصورة</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const input = document.getElementById('textInput');
+        const cardTexts = document.querySelectorAll('.card-text');
+        const previewAreas = document.querySelectorAll('.preview-area');
+        const bgType = document.getElementById('bgType');
+        const fontSizeSelect = document.getElementById('fontSizeSelect');
+        const customTextColor = document.getElementById('customTextColor');
+        
+        const defaultText = "تراب";
+
+        function updateContent() {
+            let val = input.value.trim() || defaultText;
             
-            <a href="https://instagram.com/smskl99" target="_blank" class="social-card instagram">
-                <i class="fab fa-instagram"></i>
-                <h3>إنستغرام</h3>
-                <p>تابع آخر اليوميات والقصص والتصاميم</p>
-            </a>
+            cardTexts.forEach(el => {
+                el.textContent = val;
+            });
+        }
 
-            <a href="https://tiktok.com/@smskl99" target="_blank" class="social-card tiktok">
-                <i class="fab fa-tiktok"></i>
-                <h3>تيك توك</h3>
-                <p>شاهد الفيديوهات والمحتوى المرئي</p>
-            </a>
+        // تغيير نوع الخلفيات للبطاقات
+        bgType.addEventListener('change', (e) => {
+            const mode = e.target.value;
+            previewAreas.forEach(area => {
+                if (mode === 'dark') {
+                    area.style.background = '#0b0f19';
+                } else if (mode === 'transparent') {
+                    area.style.background = 'repeating-conic-gradient(#1e293b 0% 25%, #0f172a 0% 50%) 50% / 16px 16px';
+                } else if (mode === 'light') {
+                    area.style.background = '#ffffff';
+                } else if (mode === 'gold-grad') {
+                    area.style.background = 'linear-gradient(135deg, #2a1f07 0%, #0b0f19 100%)';
+                }
+            });
+        });
 
-            <a href="#about" class="social-card portfolio-icon">
-                <i class="fas fa-palette"></i>
-                <h3>معرض الأعمال</h3>
-                <p>إلقاء نظرة على المشاريع والتصاميم الجرافيكية</p>
-            </a>
+        // تغيير أحجام الخطوط
+        fontSizeSelect.addEventListener('change', (e) => {
+            const size = e.target.value;
+            cardTexts.forEach(el => {
+                if (size === 'small') el.style.transform = 'scale(0.8)';
+                if (size === 'medium') el.style.transform = 'scale(1)';
+                if (size === 'large') el.style.transform = 'scale(1.25)';
+            });
+        });
 
-        </div>
-    </section>
+        // تغيير لون الخط المخصص
+        customTextColor.addEventListener('input', (e) => {
+            const color = e.target.value;
+            cardTexts.forEach(el => {
+                el.style.webkitBackgroundClip = 'initial';
+                el.style.webkitTextFillColor = 'initial';
+                el.style.color = color;
+            });
+        });
 
-    <section class="about-section" id="about">
-        <h2>نبذة عني</h2>
-        <div class="about-content">
-            <p>شغوف بالخط العربي والأصالة، وأعمل على دمج الفنون التقليدية باللمسات الرقمية الحديثة من خلال التصميم الجرافيكي، صناعة الهويات البصرية، وتحرير الفيديو الرقمي. أسعى دائماً لتقديم محتوى مرئي فريد يحمل طابعاً خاصاً ومميزاً.</p>
-        </div>
-    </section>
+        input.addEventListener('input', updateContent);
 
-    <footer>
-        <p>&copy; 2026 smskl99. جميع الحقوق محفوظة.</p>
-    </footer>
+        input.value = defaultText;
+        updateContent();
 
+        // تنزيل الصورة
+        function downloadCard(button) {
+            const card = button.closest('.card');
+            const previewArea = card.querySelector('.preview-area');
+            const textVal = input.value.trim() || defaultText;
+            
+            button.innerText = "جاري التصدير...";
+
+            const isTransparent = bgType.value === 'transparent';
+            
+            html2canvas(previewArea, {
+                backgroundColor: isTransparent ? null : getComputedStyle(previewArea).backgroundColor,
+                scale: 3,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `${textVal}-مخطوطة-احترافية.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                button.innerText = "حفظ الصورة";
+            }).catch(() => {
+                button.innerText = "حفظ الصورة";
+            });
+        }
+    </script>
 </body>
 </html>
-
